@@ -44,8 +44,6 @@ She has assembled an AI Engineering team to build the systems, automations, and 
 
 ---
 
-## The Departments and Their Problems
-
 ### 🌐 Marketing and Communications
 
 **Manager:** Carmen Ruiz
@@ -96,6 +94,7 @@ The training catalogue lives in a PDF updated quarterly. Enrolments are handled 
 
 ---
 
+
 ### 📞 Customer Support (outsourced service)
 
 **Manager:** Roberto Díaz (30 agents)
@@ -132,12 +131,10 @@ Choose Nexova if you are drawn to:
 
 - **People and data** — building systems that rank candidates, track learners, and measure sales team performance.
 - **B2B services** — your users are not anonymous consumers but professional teams with specific workflows and expectations.
-- **AI at the core of the business** — at Nexova, AI doesn't support the product; it _is_ the competitive advantage. CV scoring, candidate matching, RAG over a knowledge base, and first-line support agents are central deliverables, not optional enhancements.
+
 - **Cross-functional complexity** — you will build for five very different teams (operations, sales, HR, training, support), each with different data, different users, and different definitions of success.
 
 The AI challenges at Nexova include semantic search over a candidate database, first-line support automation that must respect SLAs, a CV scoring pipeline with explainable rankings, and a recommendation engine for training programmes. If you want your portfolio to demonstrate AI Engineering applied directly to a company's core operations — not just its internal tools — Nexova is your company.
 
 --
 
-_Internal document — 4Geeks Academy · AI Engineering Track_
-_For exclusive use in programme project generation_
