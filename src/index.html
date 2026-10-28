@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Interactive test page for Nexova candidate management utilities."
+    >
+    <title>Nexova Candidate Utilities</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: #172033;
+        background: #f3f6fb;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      header {
+        padding: 2rem max(1.25rem, calc((100% - 1120px) / 2));
+        color: white;
+        background: linear-gradient(120deg, #172554, #1d4ed8);
+      }
+
+      header p {
+        max-width: 700px;
+        margin-bottom: 0;
+        color: #dbeafe;
+        line-height: 1.6;
+      }
+
+      main {
+        width: min(1120px, calc(100% - 2rem));
+        margin: 1.5rem auto 3rem;
+      }
+
+      .toolbar {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 1rem;
+      }
+
+      section,
+      .results {
+        padding: 1.1rem;
+        border: 1px solid #dce3ee;
+        border-radius: 12px;
+        background: white;
+        box-shadow: 0 4px 14px rgb(23 32 51 / 4%);
+      }
+
+      h1,
+      h2 {
+        margin-top: 0;
+      }
+
+      h1 {
+        margin-bottom: 0.4rem;
+      }
+
+      h2 {
+        font-size: 1.05rem;
+      }
+
+      form,
+      .control-stack {
+        display: grid;
+        gap: 0.65rem;
+      }
+
+      label {
+        display: grid;
+        gap: 0.35rem;
+        color: #46536b;
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+
+      input,
+      select,
+      button {
+        min-height: 42px;
+        padding: 0.55rem 0.7rem;
+        border: 1px solid #cbd5e1;
+        border-radius: 7px;
+        font: inherit;
+      }
+
+      button {
+        border-color: #1d4ed8;
+        color: white;
+        background: #1d4ed8;
+        font-weight: 650;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #1e40af;
+      }
+
+      button.secondary {
+        border-color: #cbd5e1;
+        color: #334155;
+        background: white;
+      }
+
+      .inline-controls {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .inline-controls > * {
+        flex: 1;
+      }
+
+      .results {
+        margin-top: 1rem;
+      }
+
+      #result-message {
+        color: #475569;
+      }
+
+      .table-wrap {
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        font-size: 0.9rem;
+      }
+
+      th,
+      td {
+        padding: 0.7rem;
+        border-bottom: 1px solid #e2e8f0;
+        vertical-align: top;
+      }
+
+      th {
+        color: #475569;
+        background: #f8fafc;
+        white-space: nowrap;
+      }
+
+      pre {
+        overflow: auto;
+        margin-bottom: 0;
+        padding: 1rem;
+        border-radius: 8px;
+        background: #f8fafc;
+        line-height: 1.5;
+      }
+
+      .help {
+        margin-top: 1rem;
+        color: #64748b;
+        font-size: 0.9rem;
+        line-height: 1.6;
+      }
+
+      code {
+        padding: 0.1rem 0.25rem;
+        border-radius: 4px;
+        background: #eef2ff;
+      }
+
+      @media (max-width: 520px) {
+        header {
+          padding-top: 1.5rem;
+          padding-bottom: 1.5rem;
+        }
+
+        .inline-controls {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Nexova Candidate Utilities</h1>
+      <p>
+        Try the TypeScript collection, search, scoring, and reporting functions
+        against a small sample candidate dataset.
+      </p>
+    </header>
+
+    <main>
+      <div class="toolbar">
+        <section>
+          <h2>Search candidates</h2>
+          <form id="search-form">
+            <label>
+              Search by
+              <select id="search-field">
+                <option value="id">Candidate ID</option>
+                <option value="email">Email</option>
+              </select>
+            </label>
+            <label>
+              Search value
+              <input id="search-query" type="search" placeholder="C-2024-0451" required>
+            </label>
+            <button type="submit">Search</button>
+          </form>
+        </section>
+
+        <section>
+          <h2>Filter candidates</h2>
+          <form id="filter-form">
+            <label>
+              Required skills (comma separated)
+              <input id="filter-skills" type="text" placeholder="TypeScript, React">
+            </label>
+            <label>
+              Seniority
+              <select id="filter-seniority">
+                <option value="">All levels</option>
+                <option>Junior</option>
+                <option>Semi-Senior</option>
+                <option>Senior</option>
+                <option>Lead</option>
+                <option>Executive</option>
+              </select>
+            </label>
+            <label>
+              Availability
+              <select id="filter-availability">
+                <option value="">All statuses</option>
+                <option>Immediate</option>
+                <option>2 weeks</option>
+                <option>1 month</option>
+                <option>Not available</option>
+              </select>
+            </label>
+            <button type="submit">Apply filters</button>
+          </form>
+        </section>
+
+        <section>
+          <h2>Sort candidates</h2>
+          <form id="sort-form">
+            <label>
+              Sort by
+              <select id="sort-field">
+                <option value="salary">Expected salary</option>
+                <option value="experience">Years of experience</option>
+              </select>
+            </label>
+            <label>
+              Order
+              <select id="sort-order">
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+              </select>
+            </label>
+            <button type="submit">Sort candidates</button>
+          </form>
+        </section>
+
+        <section>
+          <h2>Score and reports</h2>
+          <div class="control-stack">
+            <button id="rank-button" type="button">Rank for sample vacancy</button>
+            <button id="report-button" type="button">Generate selection report</button>
+            <button id="reset-button" class="secondary" type="button">Show all candidates</button>
+          </div>
+        </section>
+      </div>
+
+      <section class="results" aria-live="polite">
+        <h2>Results</h2>
+        <p id="result-message">Loading sample candidates...</p>
+        <div id="result-content"></div>
+      </section>
+
+      <p class="help">
+        To run locally: execute <code>npm run build</code>, then start a static
+        server from the project root (for example
+        <code>npx http-server -p 3000 -a 0.0.0.0</code>) and open
+        <code>http://localhost:3000/src/</code>.
+      </p>
+    </main>
+    <script type="module" src="../dist/demo.js"></script>
+  </body>
+</html>
