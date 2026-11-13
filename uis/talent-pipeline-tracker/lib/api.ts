@@ -25,8 +25,10 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
     let msg = `Request failed (${res.status}).`;
     try {
       const body = await res.json();
-      if (typeof body?.error === "string") msg = body.error;
-      else if (typeof body?.detail === "string") msg = body.detail;
+      if (typeof body?.error === "string") {
+        const extra = body.details && typeof body.details === "object" ? Object.values(body.details).join("; ") : "";
+        msg = extra ? `${body.error}: ${extra}` : body.error;
+      } else if (typeof body?.detail === "string") msg = body.detail;
       else if (Array.isArray(body?.detail))
         msg = body.detail
           .map((d: { loc?: unknown[]; msg: string }) => `${d.loc?.slice(1).join(".") ?? ""} ${d.msg}`.trim())

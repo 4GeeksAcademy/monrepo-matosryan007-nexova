@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { addNote, deleteNote, getCandidate, patchCandidate } from "@/lib/api";
+import { addNote, deleteNote, getCandidate, listNotes, patchCandidate } from "@/lib/api";
 import {
   STAGES, STAGE_LABELS, STATUSES, STATUS_LABELS,
   type Candidate, type Note,
@@ -37,10 +37,11 @@ export function CandidateDetail({
 
   const load = useCallback(
     (signal?: AbortSignal) => {
-      getCandidate(summary.id, signal)
-        .then((full) => {
-          setC(full);
-          setNotes(full.notes ?? []);
+      // GET /records/{id} returns notes_count only, so notes come from their own endpoint.
+      Promise.all([getCandidate(summary.id, signal), listNotes(summary.id, signal)])
+        .then(([full, list]) => {
+          setC({ ...full, notes: list, notes_count: list.length });
+          setNotes(list);
           setLoading(false);
         })
         .catch((e) => {
