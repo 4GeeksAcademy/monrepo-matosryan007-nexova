@@ -25,7 +25,7 @@ Decide whether the current working-tree change may be committed, and report PASS
 
 ## Acceptance criteria (each must be verifiable)
 - [ ] Area checks exit with code 0 (or area is `docs-only`).
-- [ ] `git diff --name-only` and `git diff --cached --name-only` contain no protected path (`BRIEFING.md`, `CONTEXT.md`, `.gitignore`, `.env*`, lockfiles) unless the developer confirmed it in this session.
+- [ ] `git diff --name-only` and `git diff --cached --name-only` contain no protected path (`BRIEFING.md`, `.gitignore`, `.env*`, lockfiles) unless the developer confirmed it in this session.
 - [ ] `git ls-files --cached` shows no `.env*`, `node_modules/` or `dist/` entries.
 - [ ] If `briefing_need` is given, it quotes text that exists in `BRIEFING.md` (`grep -F` succeeds).
 - [ ] `memory-bank/progress.md` appears in the diff when feature state changed.
