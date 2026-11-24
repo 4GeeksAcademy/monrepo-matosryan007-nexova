@@ -16,7 +16,7 @@ One company, one repo. Each top-level folder has a single responsibility; read t
 | `/memory-bank` | Persistent context for coding agents (this folder) |
 
 ## Existing code and known exceptions
-- `Nexova_Public_Website/` — Milestone 1 static site (HTML/CSS/JS, EN + `es/`). It predates the `uis/website` convention. Do not move it without developer confirmation; the future public site belongs in `uis/website`.
+- `uis/website` — public site (Vite + React 19 + TypeScript + Tailwind 4, EN/ES). It replaced the Milestone 1 static site `Nexova_Public_Website/`, removed at developer request (recoverable from git history). The M1 form logic lives on in `uis/website/src/legacy/`.
 - `src/` — Milestone 2 TypeScript domain models and utils (`types/`, `utils/`, `milestone2_context/`). Built with `npm run typecheck` / `npm run build` at the repo root (TypeScript ^7). `dist/` is build output and is git-ignored.
 - `uis/talent-pipeline-tracker/` — Milestone 3 candidate pipeline UI. It predates the convention, so it stays where it is. New UIs go in `uis/website` or `uis/backoffice`.
 
