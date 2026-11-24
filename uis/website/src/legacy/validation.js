@@ -1,7 +1,10 @@
-(() => {
-  'use strict';
-  const form = document.querySelector('#talent-form');
-  if (!form) return;
+// Talent form validation (ported from Nexova_Public_Website/validation.js).
+// The logic is unchanged. It is wrapped in initTalentForm(form) so React can call it
+// once the form has mounted, and it returns a cleanup function that removes every
+// listener (needed for React StrictMode and route changes).
+export function initTalentForm(form) {
+  const controller = new AbortController();
+  const { signal } = controller;
   const es = form.dataset.locale === 'es';
   const t = (en, spanish) => es ? spanish : en;
   const fields = ['fullName', 'email', 'phone', 'country', 'experience', 'sector', 'english', 'availability', 'linkedin', 'comments', 'dataPolicy'];
@@ -86,14 +89,14 @@
     return invalid;
   }
   fields.forEach(name => controls(name).forEach(control => {
-    control.addEventListener('blur', () => { touched.add(name); show(name, validate(name)); if (!summary.hidden) updateSummary(); });
+    control.addEventListener('blur', () => { touched.add(name); show(name, validate(name)); if (!summary.hidden) updateSummary(); }, { signal });
     ['input', 'change'].forEach(type => control.addEventListener(type, () => {
       success.hidden = true;
       if (name === 'comments') updateCount();
       if (type === 'change') touched.add(name);
       if (touched.has(name)) show(name, validate(name));
       if (!summary.hidden) updateSummary();
-    }));
+    }, { signal }));
   }));
   form.addEventListener('submit', event => {
     event.preventDefault();
@@ -105,7 +108,7 @@
     form.reset();
     success.hidden = false;
     success.focus();
-  });
+  }, { signal });
   form.addEventListener('reset', () => {
     touched.clear();
     fields.forEach(name => show(name, ''));
@@ -114,7 +117,9 @@
     success.hidden = true;
     // Reset values are restored after the reset event finishes.
     queueMicrotask(updateCount);
-  });
-  document.querySelector('#clear-form').addEventListener('click', () => form.elements.fullName.focus());
+  }, { signal });
+  document.querySelector('#clear-form').addEventListener('click', () => form.elements.fullName.focus(), { signal });
   updateCount();
-})();
+
+  return () => controller.abort();
+}

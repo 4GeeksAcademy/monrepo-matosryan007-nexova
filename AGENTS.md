@@ -30,7 +30,6 @@ Work happens on a `feature/*` branch and reaches `main` only through a reviewed 
 - Generated blocks in `uis/talent-pipeline-tracker/AGENTS.md`
 - `package-lock.json` / lockfiles (except via a deliberate dependency change)
 - `dist/`, `node_modules/` (generated)
-- `Nexova_Public_Website/` (delivered M1 site; ask before moving or restructuring)
 
 ## 5. Rules and skills
 - Rules: `.agents/rules/` (each states its scope: always active, file-pattern, or agent-requested).
